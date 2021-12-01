@@ -1,0 +1,8 @@
+# 3DS tools
+*.exe
+
+# 3DS compilation sutff
+*/build
+*.3dsx
+*.elf
+*.smdh
