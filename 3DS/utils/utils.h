@@ -20,5 +20,6 @@ vector<T2> map_function(vector<T1> list, T2 (*func)(T1))
 	return res;
 }
 
-int int_cast(string a);
-double float_cast(string a);
+int int_cast(string n);
+double float_cast(string n);
+vector<string> split(string str, char del = ' ', int *len = nullptr);
