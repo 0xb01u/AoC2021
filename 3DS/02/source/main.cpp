@@ -25,8 +25,20 @@ int main()
 	}
 	else
 	{
-		cout << "Part one: " << one() << endl;
-		cout << "Part two: " << two() << endl;
+		int _1 = one();
+		int _2 = two();
+
+		cout << "Part one: " << _1 << endl;
+		if (_1 != 1804520)
+		{
+			cout << " >>> PART 1 ERROR <<< " << endl;
+		}
+
+		cout << "Part two: " << _2 << endl;
+		if (_2 != 1971095320)
+		{
+			cout << " >>> PART 2 ERROR <<< " << endl;
+		}
 	}
 
 	cout << endl << "Press START to exit." << endl;
