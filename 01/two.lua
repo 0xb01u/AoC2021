@@ -1,5 +1,5 @@
 package.path = package.path .. ";../modules/?.lua"
-local  tools = require "tools"
+local tools = require "tools"
 
 report = tools.map(tonumber, tools.readlines("input.txt"))
 

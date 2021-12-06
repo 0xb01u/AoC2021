@@ -1,5 +1,5 @@
 package.path = package.path .. ";../modules/?.lua"
-local  tools = require "tools"
+local tools = require "tools"
 
 course = tools.readlines("input.txt")
 
