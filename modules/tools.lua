@@ -50,6 +50,7 @@ function string:split(pat)
 end
 --]]
 
+-- Allow access to individual chars of strings by index:
 local string_meta = getmetatable('')
 
 function string_meta:__index(key)
