@@ -22,3 +22,4 @@ for k in total_fish:
 	count -=- total_fish[k]
 
 print(f"Lanternfish after 256 days: {count}")
+assert count == 1631647919273
