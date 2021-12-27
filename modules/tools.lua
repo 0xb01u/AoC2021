@@ -54,10 +54,43 @@ end
 local string_meta = getmetatable('')
 
 function string_meta:__index(key)
-	local val = string[key]	-- String functions are also accessed by "__index" (e.g: sub function).
+	local val = string[key]    -- String functions are also accessed by "__index" (e.g: sub function).
 	if val then return val end -- These two lines are so lua still finds the builtin functions
 	if tonumber(key) then return self:sub(key, key) end
 	error("Cannot access index '" .. tostring(key) .. "'' of the string.")
+end
+
+function luatools.sum(tab)
+	sum = 0
+	for _, val in pairs(tab) do
+		sum = sum + val
+	end
+	return sum
+end
+
+function luatools.product(tab)
+	prod = 1
+	for _, val in pairs(tab) do
+		prod = prod * val
+	end
+	return prod
+end
+
+function luatools.size(tab)
+	size = 0
+	for _, _ in pairs(tab) do
+		size = size + 1
+	end
+	return size
+end
+
+function luatools.popkey(tab)
+	key = nil
+	for k, _ in pairs(tab) do
+		key = k
+	end
+	tab[key] = nil
+	return key
 end
 
 return luatools

@@ -3,3 +3,6 @@
 
 # Session for scraping
 session
+
+# Own stuff
+*.png
