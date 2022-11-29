@@ -33,5 +33,5 @@ for vx in range(target[0][1]):
 		if falls_inside:
 			enters -=- 1
 
-print(f"Valid initial velocities: {enters}")	# It doesn't take that much to execute (~3s) to be really worth optimizing the solution.
+print(f"Valid initial velocities: {enters}")	# It doesn't take that much time to execute (~3s) to be really worth optimizing the solution.
 assert enters == 5523

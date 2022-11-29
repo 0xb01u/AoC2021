@@ -50,5 +50,5 @@ for vx in range(target[0][1]):
 			#print(pos)
 
 #print(y_max, x_vel_max, y_vel_max, steps_max)
-print(f"Highest y position reached: {y_max}")	# It doesn't take that much to execute (~3s) to be really worth optimizing the solution.
+print(f"Highest y position reached: {y_max}")	# It doesn't take that much time to execute (~3s) to be really worth optimizing the solution.
 assert y_max == 9870
