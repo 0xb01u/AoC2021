@@ -20,7 +20,7 @@ else:
 	days = [int(days)]
 
 if " -y" in options:
-	year = int(options.split(" -d ")[1].split(" ")[0])
+	year = int(options.split(" -y ")[1].split(" ")[0])
 
 if " -x" in options:
 	x = options.split(" -x ")[1].split(" ")[0]
