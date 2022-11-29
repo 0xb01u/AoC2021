@@ -18,6 +18,7 @@ for ins in instructions:
 		dy = 0
 	if 50 < range_z[0] or -50 > range_z[1]:
 		dz = 0
+	# Lucky implementation, there are not any commands which modify a cuboid in a partially-valid partially-invalid volume.
 
 	if dx * dy * dz > 0:	
 		for i in range(range_x[0], range_x[1] + 1):

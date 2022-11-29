@@ -2,6 +2,8 @@
 
 # (Skeleton file automatically created by aocTool, developed by Bolu, 2020-2021.)
 
+# I created a class with a bunch of methods because I though I'd have to deal with intersections and tricky stuff lol.
+# But in the end volumes do not overlap so it is **way** easier than this mess.
 class Cube():
 	def __init__(self, range_x, range_y, range_z, light="on"):
 		self.x = sorted(range_x[:])
@@ -204,8 +206,10 @@ for ins in instructions:
 		dy = 0
 	if 50 < range_z[0] or -50 > range_z[1]:
 		dz = 0
+	# Lucky implementation, there are not any commands which modify a cuboid in a partially-valid partially-invalid volume.
 
 	# Separate big cubes from init (small) cubes (they do never overlap):
+	# (Just to reuse the part 1 code because, well, it's already written. Not that it is going to run faster.)
 	if dx * dy * dz == 0:
 		cubes.append(Cube(range_x, range_y, range_z, ins.split(" ")[0]))
 		continue
