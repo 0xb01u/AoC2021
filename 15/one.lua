@@ -27,7 +27,6 @@ Q["1,1"] = true
 -- table.
 while tools.size(Q) > 0 do
 	u = tools.popkey(Q)
-	print(tools.size(Q))
 
 	neighbors = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}}
 	for _, neighbor in pairs(neighbors) do
@@ -42,5 +41,5 @@ while tools.size(Q) > 0 do
 	end
 end
 
-print("Lowest toal risk: " .. dist[dest])
+print("Lowest total risk: " .. dist[dest])
 assert(dist[dest] == 447)
