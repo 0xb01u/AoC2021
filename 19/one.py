@@ -27,7 +27,7 @@ def valid_rotations():
 	 1. Swaps 2 axis.
 	 2. Negates one of the swapped axis.
 
-	Exaples for valiz (yz) rotations for "facing x" and "facing -x":
+	Exaples for valid (yz) rotations for "facing x" and "facing -x":
 
 	x, y, z
 	x, z, -y
