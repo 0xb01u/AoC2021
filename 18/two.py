@@ -81,18 +81,18 @@ def reconstruct(l):
 		elif n[0] == 4:
 			list4.append(n[1])
 
-		if len(list4) == 2:
-			list3.append(list4)
-			list4 = []
-		if len(list3) == 2:
-			list2.append(list3)
-			list3 = []
-		if len(list2) == 2:
-			list1.append(list2)
-			list2 = []
-		if len(list1) == 2:
-			list0.append(list1)
-			list1 = []
+	if len(list4) == 2:
+		list3.append(list4)
+		list4 = []
+	if len(list3) == 2:
+		list2.append(list3)
+		list3 = []
+	if len(list2) == 2:
+		list1.append(list2)
+		list2 = []
+	if len(list1) == 2:
+		list0.append(list1)
+		list1 = []
 
 	return list0
 
