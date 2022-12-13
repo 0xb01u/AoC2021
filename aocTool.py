@@ -68,15 +68,18 @@ for day in days:
 		description_md = re.sub(r'</h2>', "", description_md)
 		description_md = re.sub(r'<article.*?>', "", description_md)
 		description_md = re.sub(r'</article>', "", description_md)
-		description_md = re.sub(r'<a href="(.*?)".*>(.*?)</a>', r'[\2](\1)', description_md)
+		# 2021 day 10 uses "](" as valid substring in input examples. We exclude it from being treated as a markdown link by temporally using "__aocTool_parser_IR__".
+		description_md = re.sub(r'<a href="(.*?)".*>(.*?)</a>', r'[\2__aocTool_parser_IR__](\1)', description_md)
 		description_md = re.sub(r'<form(.|\n)*?/form>', "", description_md)
-		description_md = re.sub(r'\]\(/', r'](https://adventofcode.com/', description_md)
-		description_md = re.sub(r'\]\(([^/h])', rf'](https://adventofcode.com/{year}/day/\1', description_md)
+		description_md = re.sub(r'__aocTool_parser_IR__\]\(/', r'](https://adventofcode.com/', description_md)
+		description_md = re.sub(r'__aocTool_parser_IR__\]\(([^/h])', rf'](https://adventofcode.com/{year}/day/\1', description_md) # 'h' for https; for wikipedia links etc
+		description_md = re.sub(r'__aocTool_parser_IR__', "", description_md)
 		description_md = re.sub(r'`\*\*(.*)\*\*`', r'**`\1`**', description_md)	# Correct bold code
 		description_md = re.sub(r'\n\n', "\n", description_md)
 		description_md = re.sub(r'\nYou can also.*', "", description_md, flags=re.S)
 		description_md = re.sub(r'&gt;', ">", description_md)
 		description_md = re.sub(r'&lt;', "<", description_md)
+		description_md = re.sub(r'<style>.*</style>', "", description_md)
 
 		open(f"./{day:02d}/README.md", "w").write(description_md)
 
@@ -84,9 +87,9 @@ for day in days:
 		print(f"Creating {day:02d}/one.{x}")
 		file = open(f"./{day:02d}/one.{x}", "w")
 		if x == "py":
-			file.write(f'# --- Advent of code {year}: Day {day:02d} ---\n\n# (Skeleton file automatically created by aocTool, developed by Bolu, 2020-2021.)\n\nopen("input.txt").read().splitlines()\n\n')
+			file.write(f'# --- Advent of code {year}: Day {day:02d} ---\n\n# (Skeleton file automatically created by aocTool, developed by Bolu, 2020-2022.)\n\ninp = open("input.txt").read().splitlines()\n\n')
 		elif x == "lua":
-			file.write(f"-- --- Advent of code {year}: Day {day:02d} ---\n\n-- (Skeleton file automatically created by aocTool, developed by Bolu, 2020-2021.)\n\npackage.path = package.path .. \";../modules/?.lua\"\nlocal tools = require \"tools\"\n\ninput = tools.readlines(\"input.txt\")\n\n")
+			file.write(f"-- --- Advent of code {year}: Day {day:02d} ---\n\n-- (Skeleton file automatically created by aocTool, developed by Bolu, 2020-2022.)\n\npackage.path = package.path .. \";../modules/?.lua\"\nlocal tools = require \"tools\"\n\ninput = tools.readlines(\"input.txt\")\n\n")
 		file.close()
 
 if " -g" in options:

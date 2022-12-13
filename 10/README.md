@@ -12,37 +12,37 @@ The navigation subsystem syntax is made of several lines containing **chunks**. 
  - If a chunk opens with `(`, it must close with `)`.
  - If a chunk opens with `[`, it must close with `]`.
  - If a chunk opens with `{`, it must close with `}`.
- - If a chunk opens with `&lt;`, it must close with `&gt;`.
+ - If a chunk opens with `<`, it must close with `>`.
 
-So, `()` is a legal chunk that contains no other chunks, as is `[]`. More complex but valid chunks include `([])`, `{()()()}`, `&lt;([{}])&gt;`, `[&lt;&gt;({}){}[([])&lt;&gt;]]`, and even `(((((((((())))))))))`.
+So, `()` is a legal chunk that contains no other chunks, as is `[]`. More complex but valid chunks include `([])`, `{()()()}`, `<([{}])>`, `[<>({}){}[([])<>]]`, and even `(((((((((())))))))))`.
 
 Some lines are **incomplete**, but others are **corrupted**. Find and discard the corrupted lines first.
 
 A corrupted line is one where a chunk **closes with the wrong character** - that is, where the characters it opens and closes with do not form one of the four legal pairs listed above.
 
-Examples of corrupted chunks include `(]`, `{()()()&gt;`, `(((()))}`, and `&lt;([]){()}[{}])`. Such a chunk can appear anywhere within a line, and its presence causes the whole line to be considered corrupted.
+Examples of corrupted chunks include `(]`, `{()()()>`, `(((()))}`, and `<([]){()}[{}])`. Such a chunk can appear anywhere within a line, and its presence causes the whole line to be considered corrupted.
 
 For example, consider the following navigation subsystem:
 ```
-[({(&lt;(())[]&gt;[[{[]{&lt;()&lt;&gt;&gt;
-[(()[&lt;&gt;])](https://adventofcode.com/2021/day/{[&lt;{&lt;&lt;[]&gt;&gt;(
-{([(&lt;{}[&lt;&gt;[]}&gt;{[]{[(&lt;()&gt;
-(((({&lt;&gt;}&lt;{&lt;{&lt;&gt;}{[]{[]{}
-[[&lt;[([]))&lt;([[{}[[()]]]
+[({(<(())[]>[[{[]{<()<>>
+[(()[<>])]({[<{<<[]>>(
+{([(<{}[<>[]}>{[]{[(<()>
+(((({<>}<{<{<>}{[]{[]{}
+[[<[([]))<([[{}[[()]]]
 [{[{({}]{}}([{[{{{}}([]
-{&lt;[[]]&gt;}&lt;{[{[{[]{()[[[]
-[&lt;(&lt;(&lt;(&lt;{}))&gt;&lt;([](https://adventofcode.com/2021/day/[](https://adventofcode.com/2021/day/)
-&lt;{([([[(&lt;&gt;()){}]&gt;(&lt;&lt;{{
-&lt;{([{{}}[&lt;[[[&lt;&gt;{}]]]&gt;[]]
+{<[[]]>}<{[{[{[]{()[[[]
+[<(<(<(<{}))><([]([]()
+<{([([[(<>()){}]>(<<{{
+<{([{{}}[<[[[<>{}]]]>[]]
 ```
 
 Some of the lines aren't corrupted, just incomplete; you can ignore these lines for now. The remaining five lines are corrupted:
 
- - `{([(&lt;{}[&lt;&gt;[]}&gt;{[]{[(&lt;()&gt;` - Expected `]`, but found `}` instead.
- - `[[&lt;[([]))&lt;([[{}[[()]]]` - Expected `]`, but found `)` instead.
+ - `{([(<{}[<>[]}>{[]{[(<()>` - Expected `]`, but found `}` instead.
+ - `[[<[([]))<([[{}[[()]]]` - Expected `]`, but found `)` instead.
  - `[{[{({}]{}}([{[{{{}}([]` - Expected `)`, but found `]` instead.
- - `[&lt;(&lt;(&lt;(&lt;{}))&gt;&lt;([](https://adventofcode.com/2021/day/[](https://adventofcode.com/2021/day/)` - Expected `&gt;`, but found `)` instead.
- - `&lt;{([([[(&lt;&gt;()){}]&gt;(&lt;&lt;{{` - Expected `]`, but found `&gt;` instead.
+ - `[<(<(<(<{}))><([]([]()` - Expected `>`, but found `)` instead.
+ - `<{([([[(<>()){}]>(<<{{` - Expected `]`, but found `>` instead.
 
 Stop at the first incorrect closing character on each corrupted line.
 
@@ -51,10 +51,58 @@ Did you know that syntax checkers actually have contests to see who can get the 
  - `)`: `3` points.
  - `]`: `57` points.
  - `}`: `1197` points.
- - `&gt;`: `25137` points.
+ - `>`: `25137` points.
 
-In the above example, an illegal `)` was found twice (`2*3 = **6**` points), an illegal `]` was found once (**`57**` points), an illegal `}` was found once (`**1197**` points), and an illegal `&gt;` was found once (`**25137**` points). So, the total syntax error score for this file is `6+57+1197+25137 = **26397`** points!
+In the above example, an illegal `)` was found twice (`2*3 = **6**` points), an illegal `]` was found once (**`57**` points), an illegal `}` was found once (`**1197**` points), and an illegal `>` was found once (`**25137**` points). So, the total syntax error score for this file is `6+57+1197+25137 = **26397`** points!
 
 Find the first illegal character in each corrupted line of the navigation subsystem. **What is the total syntax error score for those errors?**
 
-To begin, [get your puzzle input](https://adventofcode.com/2021/day/10/input).
+Your puzzle answer was `374061`.
+## --- Part Two ---
+Now, discard the corrupted lines.  The remaining lines are **incomplete**.
+
+Incomplete lines don't have any incorrect characters - instead, they're missing some closing characters at the end of the line. To repair the navigation subsystem, you just need to figure out **the sequence of closing characters** that complete all open chunks in the line.
+
+You can only use closing characters (`)`, `]`, `}`, or `>`), and you must add them in the correct order so that only legal pairs are formed and all chunks end up closed.
+
+In the example above, there are five incomplete lines:
+
+ - `[({(<(())[]>[[{[]{<()<>>` - Complete by adding `}}]])})]`.
+ - `[(()[<>])]({[<{<<[]>>(` - Complete by adding `)}>]})`.
+ - `(((({<>}<{<{<>}{[]{[]{}` - Complete by adding `}}>}>))))`.
+ - `{<[[]]>}<{[{[{[]{()[[[]` - Complete by adding `]]}}]}]}>`.
+ - `<{([{{}}[<[[[<>{}]]]>[]]` - Complete by adding `])}>`.
+
+Did you know that autocomplete tools **also** have contests? It's true! The score is determined by considering the completion string character-by-character. Start with a total score of `0`. Then, for each character, multiply the total score by 5 and then increase the total score by the point value given for the character in the following table:
+
+ - `)`: `1` point.
+ - `]`: `2` points.
+ - `}`: `3` points.
+ - `>`: `4` points.
+
+So, the last completion string above - `])}>` - would be scored as follows:
+
+ - Start with a total score of `0`.
+ - Multiply the total score by 5 to get `0`, then add the value of `]` (2) to get a new total score of `2`.
+ - Multiply the total score by 5 to get `10`, then add the value of `)` (1) to get a new total score of `11`.
+ - Multiply the total score by 5 to get `55`, then add the value of `}` (3) to get a new total score of `58`.
+ - Multiply the total score by 5 to get `290`, then add the value of `>` (4) to get a new total score of `294`.
+
+The five lines' completion strings have total scores as follows:
+
+ - `}}]])})]` - `288957` total points.
+ - `)}>]})` - `5566` total points.
+ - `}}>}>))))` - `1480781` total points.
+ - `]]}}]}]}>` - `995444` total points.
+ - `])}>` - `294` total points.
+
+Autocomplete tools are an odd bunch: the winner is found by **sorting** all of the scores and then taking the **middle** score. (There will always be an odd number of scores to consider.) In this example, the middle score is **`288957`** because there are the same number of scores smaller and larger than it.
+
+Find the completion string for each incomplete line, score the completion strings, and sort the scores. **What is the middle score?**
+
+Your puzzle answer was `2116639949`.
+Both parts of this puzzle are complete! They provide two gold stars: **
+
+At this point, all that is left is for you to [admire your Advent calendar](https://adventofcode.com/2021).
+
+If you still want to see it, you can [get your puzzle input](https://adventofcode.com/2021/day/10/input).
